@@ -1,29 +1,20 @@
+var flying_through_space = (function () {
+var viewHolder = document.createElement('div');
 //declare and initialize variables
 booBreak=false;
 //requestAnimFrame
-window.requestAnimFrame=(function(){
+window.requestAnimFrame = (function() {
 	return  window.requestAnimationFrame ||
 	window.webkitRequestAnimationFrame ||
 	window.mozRequestAnimationFrame ||
 	function(callback){
-		window.setTimeout(callback,1000/60);
+		window.setTimeout(callback, 1000 / 60);
 	};
 })();
-window.onhashchange = function(){
-	if(window.location.hash==''){
-		booBreak=true;
-		canvas.parentNode.removeChild(canvas);
-		document.getElementById('menu').style.display='block';
-		document.getElementById('instructions').innerHTML='';
-		document.getElementById('instructions').className='';
-		document.body.style.cursor='default';
-	}
-}
-function getSlider(){
-	window.location.hash='#run';
-	intStars=document.getElementById('slider').value-1;
-	starSize=20/Math.pow((intStars+1),.4);
-	mainProgram(intStars,starSize);
+function getSlider() {
+	intStars = document.getElementById('slider').value - 1;
+	starSize = 20 / Math.pow((intStars + 1), .4);
+	mainProgram(intStars, starSize);
 }
 //mainProgram;
 function mainProgram(intStars,starSize){
@@ -34,9 +25,11 @@ function mainProgram(intStars,starSize){
 	document.getElementById('instructions').className='instructions';
 	document.body.style.cursor='none';
 	//create canvas
-	canvas=document.createElement('canvas');
+	canvas = document.createElement('canvas');
+	canvas.className = 'fullscreen';
 	context=canvas.getContext('2d');
-	document.body.appendChild(canvas);
+	viewHolder.appendChild(canvas);
+	document.body.appendChild(viewHolder);
 	resizeCanvas();
 	window.addEventListener('resize',resizeCanvas,false);
 	function resizeCanvas(){
@@ -121,3 +114,19 @@ function mainProgram(intStars,starSize){
 		}
 	}
 }
+
+document.getElementById('btn_launch').onclick = getSlider;
+
+var on = function () {
+	
+};
+var off = function () {
+	document.body.style.cursor='default';
+	booBreak = true;
+	viewHolder.parentNode && viewHolder.parentNode.removeChild(viewHolder);
+};
+return {
+	on: on,
+	off: off
+};
+}());

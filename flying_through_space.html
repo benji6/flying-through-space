@@ -1,25 +1,11 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1">
-		<title>Flying Through Space</title>
-		<link rel="stylesheet" href="flying_through_space.css" type="text/css">
-	</head>
-	<body>
-		<div id="instructions"></div>
-		<div id="menu">
-			<header>
-				<h3><a href="../index.php">Home</a></h3>
-			</header>
-			<h1>Select Number of Stars</h1>
-			<h3>More Stars = More Resource Intensive</h3>
-			<p>Instructions: use up and down arrow keys to control speed and left and right to warp spacetime</p>
-			<p>Fullscreen recommended!</p>
-			<input id="slider" class="slider" type="range" min="64" max="2048" step="8" value="512" onchange="rangevalue.value=value">
-			<output id="rangevalue">512</output>
-			<button onfocus="if(this.blur)this.blur()" onclick="getSlider();">Launch!</button>
-		</div>
-		<script src="flying_through_space.js"></script>
-	</body>
-</html>
+<div id="instructions"></div>
+<div id="menu">
+	<h1>Flying Through Space</h1>
+	<h2>Select Number of Stars</h2>
+	<p>More Stars = More Resource Intensive<p>
+	<p>Instructions: use up and down arrow keys to control speed and left and right to warp spacetime</p>
+	<p>Fullscreen recommended!</p>
+	<input id="slider" class="slider" type="range" min="64" max="2048" step="8" value="512" onchange="rangevalue.value=value">
+	<output id="rangevalue">512</output>
+	<button onfocus="if(this.blur)this.blur()" id="btn_launch">Launch!</button>
+</div>
