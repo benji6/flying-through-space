@@ -1,5 +1,8 @@
 var flying_through_space = (function () {
+
 var viewHolder = document.createElement('div');
+var btnLaunch = document.createElement('button');
+document.body.appendChild(viewHolder);
 //declare and initialize variables
 booBreak=false;
 //requestAnimFrame
@@ -29,7 +32,6 @@ function mainProgram(intStars,starSize){
 	canvas.className = 'fullscreen';
 	context=canvas.getContext('2d');
 	viewHolder.appendChild(canvas);
-	document.body.appendChild(viewHolder);
 	resizeCanvas();
 	window.addEventListener('resize',resizeCanvas,false);
 	function resizeCanvas(){
@@ -115,10 +117,15 @@ function mainProgram(intStars,starSize){
 	}
 }
 
-document.getElementById('btn_launch').onclick = getSlider;
+btnLaunch.onclick = getSlider;
+btnLaunch.onfocus = function () {
+	this.blur && this.blur();
+};
+btnLaunch.appendChild(document.createTextNode('Launch!'));
+viewHolder.appendChild(btnLaunch);
 
 var on = function () {
-	
+	console.log('on');
 };
 var off = function () {
 	document.body.style.cursor='default';
