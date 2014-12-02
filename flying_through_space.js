@@ -1,6 +1,45 @@
 var flying_through_space = (function () {
 
+var instructionsView = document.createElement('div');
 var viewHolder = document.createElement('div');
+var txtView = document.createElement('div');
+var inputRange = document.createElement('input');
+(function createTxtView() {
+var h2 = document.createElement('h2');
+var h2b = document.createElement('h2');
+var p1 = document.createElement('p');
+var p2 = document.createElement('p');
+var p3 = document.createElement('p');
+rangeValue = document.createElement('output');
+
+h2.appendChild(document.createTextNode('Flying Through Space'));
+h2b.appendChild(document.createTextNode('Select Number of Stars'));
+p1.appendChild(document.createTextNode('More Stars = More Resource Intensive'));
+p2.appendChild(document.createTextNode('Instructions: use up and down arrow keys to control speed and left and right to warp spacetime'));
+p3.appendChild(document.createTextNode('Fullscreen recommended!'));
+inputRange.className = 'slider';
+inputRange.type = 'range';
+inputRange.min = '64';
+inputRange.max = '2048';
+inputRange.step = '8';
+inputRange.value = '512';
+inputRange.onchange = function() {
+	rangeValue.value = this.value;
+};
+rangeValue.value = '512';
+
+txtView.appendChild(h2);
+txtView.appendChild(h2b);
+txtView.appendChild(p1);
+txtView.appendChild(p2);
+txtView.appendChild(p3);
+txtView.appendChild(inputRange);
+txtView.appendChild(rangeValue);
+viewHolder.appendChild(txtView);
+
+
+}());
+
 var btnLaunch = document.createElement('button');
 document.body.appendChild(viewHolder);
 //declare and initialize variables
@@ -15,7 +54,7 @@ window.requestAnimFrame = (function() {
 	};
 })();
 function getSlider() {
-	intStars = document.getElementById('slider').value - 1;
+	intStars = inputRange.value - 1;
 	starSize = 20 / Math.pow((intStars + 1), .4);
 	mainProgram(intStars, starSize);
 }
@@ -23,9 +62,9 @@ function getSlider() {
 function mainProgram(intStars,starSize){
 	booBreak=false;
 	//change display
-	document.getElementById('menu').style.display='none';
-	document.getElementById('instructions').innerHTML='Use up and down arrow keys to control speed and left and right to warp spacetime';
-	document.getElementById('instructions').className='instructions';
+	txtView.style.display='none';
+	instructionsView.appendChild(document.createTextNode('Use up and down arrow keys to control speed and left and right to warp spacetime'));
+	instructionsView.className='instructions';
 	document.body.style.cursor='none';
 	//create canvas
 	canvas = document.createElement('canvas');
