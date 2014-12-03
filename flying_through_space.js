@@ -7,6 +7,7 @@ var instructionsView = document.createElement('div');
 var inputRange = document.createElement('input');
 var rangeValue = document.createElement('output');
 var btnLaunch = document.createElement('button');
+var canvas = document.createElement('canvas');
 
 (function createTxtView() {
 	var curry = function(func) {
@@ -50,9 +51,17 @@ var btnLaunch = document.createElement('button');
 	addP('Fullscreen recommended!');
 	txtView.appendChild(inputRange);
 	viewHolder.appendChild(txtView);
-	document.body.appendChild(viewHolder);
+	
+	btnLaunch.onclick = getSlider;
+	btnLaunch.onfocus = function () {
+		this.blur && this.blur();
+	};
+	btnLaunch.appendChild(document.createTextNode('Launch!'));
+	viewHolder.appendChild(btnLaunch);
 }());
-
+function appendView() {
+	document.body.appendChild(viewHolder);
+}
 
 //requestAnimFrame
 window.requestAnimFrame = (function() {
@@ -76,10 +85,8 @@ function mainProgram(intStars,starSize){
 	instructionsView.appendChild(document.createTextNode('Use up and down arrow keys to control speed and left and right to warp spacetime'));
 	instructionsView.className='instructions';
 	document.body.style.cursor='none';
-	//create canvas
-	canvas = document.createElement('canvas');
 	canvas.className = 'fullscreen';
-	context=canvas.getContext('2d');
+	context = canvas.getContext('2d');
 	viewHolder.appendChild(canvas);
 	resizeCanvas();
 	window.addEventListener('resize',resizeCanvas,false);
@@ -166,23 +173,24 @@ function mainProgram(intStars,starSize){
 	}
 }
 
-btnLaunch.onclick = getSlider;
-btnLaunch.onfocus = function () {
-	this.blur && this.blur();
-};
-btnLaunch.appendChild(document.createTextNode('Launch!'));
-viewHolder.appendChild(btnLaunch);
-
 var on = function () {
-	console.log('on');
+	appendView();
 };
 var off = function () {
-	document.body.style.cursor='default';
 	booBreak = true;
+	document.body.style.cursor='default';
+	canvas.parentNode && canvas.parentNode.removeChild(canvas);
 	viewHolder.parentNode && viewHolder.parentNode.removeChild(viewHolder);
+	
+	txtView.style.display = '';
+	canvas.className = '';
+
+	
 };
 return {
 	on: on,
 	off: off
 };
 }());
+
+flying_through_space.on();
