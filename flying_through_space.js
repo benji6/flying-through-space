@@ -1,49 +1,59 @@
 var flying_through_space = (function () {
 
-var instructionsView = document.createElement('div');
+var booBreak = false;
 var viewHolder = document.createElement('div');
 var txtView = document.createElement('div');
+var instructionsView = document.createElement('div');
 var inputRange = document.createElement('input');
+var rangeValue = document.createElement('output');
+var btnLaunch = document.createElement('button');
+
 (function createTxtView() {
-var h2 = document.createElement('h2');
-var h2b = document.createElement('h2');
-var p1 = document.createElement('p');
-var p2 = document.createElement('p');
-var p3 = document.createElement('p');
-rangeValue = document.createElement('output');
+	var curry = function(func) {
+		var curried = function(args) {
+			if (args.length >= func.length) {
+				return func.apply(null, args);
+			}
+			return function() {
+				return curried(args.concat(Array.prototype.slice.apply(arguments)));
+			};
+		};
+		return curried(Array.prototype.slice.apply(arguments, [1]));
+	};
+	var addView = function(parentEl, childEl, txtNode) {
+		var childElement = document.createElement(childEl);
+		childElement.appendChild(document.createTextNode(txtNode));
+		parentEl.appendChild(childElement);       
+	};
+	var curryAddView = curry(addView);
+	var addViewToTxt = curryAddView(txtView);
+	var addH2 = addViewToTxt('h2');
+	var addP = addViewToTxt('p');
 
-h2.appendChild(document.createTextNode('Flying Through Space'));
-h2b.appendChild(document.createTextNode('Select Number of Stars'));
-p1.appendChild(document.createTextNode('More Stars = More Resource Intensive'));
-p2.appendChild(document.createTextNode('Instructions: use up and down arrow keys to control speed and left and right to warp spacetime'));
-p3.appendChild(document.createTextNode('Fullscreen recommended!'));
-inputRange.className = 'slider';
-inputRange.type = 'range';
-inputRange.min = '64';
-inputRange.max = '2048';
-inputRange.step = '8';
-inputRange.value = '512';
-inputRange.onchange = function() {
-	rangeValue.value = this.value;
-};
-rangeValue.value = '512';
+	//set properties of elements
+	inputRange.className = 'slider';
+	inputRange.type = 'range';
+	inputRange.min = '64';
+	inputRange.max = '2048';
+	inputRange.step = '8';
+	inputRange.value = '512';
+	inputRange.onchange = function() {
+		rangeValue.value = this.value;
+	};
+	rangeValue.value = '512';
 
-txtView.appendChild(h2);
-txtView.appendChild(h2b);
-txtView.appendChild(p1);
-txtView.appendChild(p2);
-txtView.appendChild(p3);
-txtView.appendChild(inputRange);
-txtView.appendChild(rangeValue);
-viewHolder.appendChild(txtView);
-
-
+	//append to viewHolder
+	addH2('Flying Through Space');
+	addH2('Select Number of Stars');
+	addP('More Stars = More Resource Intensive');
+	addP('Instructions: use up and down arrow keys to control speed and left and right to warp spacetime');
+	addP('Fullscreen recommended!');
+	txtView.appendChild(inputRange);
+	viewHolder.appendChild(txtView);
+	document.body.appendChild(viewHolder);
 }());
 
-var btnLaunch = document.createElement('button');
-document.body.appendChild(viewHolder);
-//declare and initialize variables
-booBreak=false;
+
 //requestAnimFrame
 window.requestAnimFrame = (function() {
 	return  window.requestAnimationFrame ||
