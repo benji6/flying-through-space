@@ -50,6 +50,7 @@ var canvas = document.createElement('canvas');
 	addP('Instructions: use up and down arrow keys to control speed and left and right to warp spacetime');
 	addP('Fullscreen recommended!');
 	txtView.appendChild(inputRange);
+	txtView.appendChild(rangeValue);
 	viewHolder.appendChild(txtView);
 	
 	btnLaunch.onclick = getSlider;
