@@ -80,29 +80,29 @@ function getSlider() {
 }
 //mainProgram;
 function mainProgram(intStars,starSize){
-	booBreak=false;
+	booBreak = false;
 	//change display
 	txtView.style.display='none';
 	instructionsView.appendChild(document.createTextNode('Use up and down arrow keys to control speed and left and right to warp spacetime'));
 	instructionsView.className='instructions';
-	document.body.style.cursor='none';
+	document.body.style.cursor = 'none';
 	canvas.className = 'fullscreen';
 	context = canvas.getContext('2d');
 	viewHolder.appendChild(canvas);
 	resizeCanvas();
-	window.addEventListener('resize',resizeCanvas,false);
+	window.addEventListener('resize', resizeCanvas, false);
 	function resizeCanvas(){
 		canvas.width=window.innerWidth;
 		canvas.height=window.innerHeight;
 	}
-	warp=0;
+	var warp = 0;
 	master(intStars);
 	function master(intStars){
 		v=1.4;
 		arrA=[];
 		arrX=[];
 		arrY=[];
-		for(i=0;i<=intStars;i++){
+		for(var i = 0; i <= intStars; i++){
 			arrX[i]=(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*16*(canvas.width);
 			arrY[i]=(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*16*(canvas.height);	
 			arrA[i]=(Math.sin(arrX[i])+Math.cos(arrY[i]))*2*Math.PI;
@@ -117,7 +117,7 @@ function mainProgram(intStars,starSize){
 				motionLooper(intStars,starSize);
 			});
 			context.clearRect(0,0,canvas.width,canvas.height);
-			for(i=0;i<=intStars;i++){
+			for(var i = 0;i <= intStars; i++){
 				motion(i,starSize);
 			}
 			colorCycle=colorCycle+.01;
