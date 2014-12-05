@@ -59,6 +59,9 @@ var canvas = document.createElement('canvas');
 	};
 	btnLaunch.appendChild(document.createTextNode('Launch!'));
 	viewHolder.appendChild(btnLaunch);
+	instructionsView.className = 'hidden';
+	instructionsView.appendChild(document.createTextNode('Use up and down arrow keys to control speed and left and right to warp spacetime'));
+	viewHolder.appendChild(instructionsView);
 }());
 function appendView() {
 	document.body.appendChild(viewHolder);
@@ -82,9 +85,9 @@ function getSlider() {
 function mainProgram(intStars,starSize){
 	booBreak = false;
 	//change display
-	txtView.style.display='none';
-	instructionsView.appendChild(document.createTextNode('Use up and down arrow keys to control speed and left and right to warp spacetime'));
-	instructionsView.className='instructions';
+	txtView.style.display = 'none';
+
+	instructionsView.className = 'instructions';
 	document.body.style.cursor = 'none';
 	canvas.className = 'fullscreen';
 	context = canvas.getContext('2d');
@@ -146,11 +149,6 @@ function mainProgram(intStars,starSize){
 	}
 	//controls
 	document.onkeydown = function(e) {
-		//escape to return to showcase
-		if (e.keyCode == 27) {
-			window.history.back();
-			return;
-		}
 		//left
 		if (e.keyCode==37 || e.keyCode==65) {
 			warp-=.0005;
@@ -182,7 +180,7 @@ var off = function () {
 	document.body.style.cursor='default';
 	canvas.parentNode && canvas.parentNode.removeChild(canvas);
 	viewHolder.parentNode && viewHolder.parentNode.removeChild(viewHolder);
-	
+	instructionsView.className = 'hidden';
 	txtView.style.display = '';
 	canvas.className = '';
 
