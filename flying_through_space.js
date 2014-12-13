@@ -35,13 +35,13 @@ var canvas = document.createElement('canvas');
 	inputRange.className = 'slider';
 	inputRange.type = 'range';
 	inputRange.min = '64';
-	inputRange.max = '2048';
+	inputRange.max = '3072';
 	inputRange.step = '8';
-	inputRange.value = '512';
+	inputRange.value = inputRange.max;
 	inputRange.onchange = function() {
 		rangeValue.value = this.value;
 	};
-	rangeValue.value = '512';
+	rangeValue.value = inputRange.value;
 
 	//append to viewHolder
 	addH2('Flying Through Space');
@@ -82,7 +82,37 @@ function getSlider() {
 	mainProgram(intStars, starSize);
 }
 //mainProgram;
+var colors = [];
+//Fisher-Yates algorithm
+var shuffle = function(arr) {
+	var currentIdx = arr.length
+	var tempVal;
+	var randomIdx;
+	while (currentIdx) {
+		randomIdx = Math.floor(Math.random() * currentIdx);
+		currentIdx--;
+		tempVal = arr[currentIdx];
+		arr[currentIdx] = arr[randomIdx];
+		arr[randomIdx] = tempVal;
+	};
+	return arr;
+};
 function mainProgram(intStars,starSize){
+	colors[0] = function r(colorVal) {
+		return colorVal.toFixed(0);
+	};
+	colors[1] = function g(colorVal) {
+		return (255 - colorVal).toFixed(0);
+	};
+	colors[2] = function b(colorVal, colorCycle) {
+		return (255 * Math.sin(colorCycle)).toFixed(0);
+	};
+	shuffle(colors);
+	var getColor = {
+		r: colors[0],
+		g: colors[1],
+		b: colors[2]
+	}
 	booBreak = false;
 	//change display
 	txtView.style.display = 'none';
@@ -100,7 +130,7 @@ function mainProgram(intStars,starSize){
 	var warp = 0;
 	master(intStars);
 	function master(intStars){
-		v=1.4;
+		var v = 1;
 		arrA=[];
 		arrX=[];
 		arrY=[];
@@ -118,7 +148,8 @@ function mainProgram(intStars,starSize){
 			window.requestAnimFrame(function(){
 				motionLooper(intStars,starSize);
 			});
-			context.clearRect(0,0,canvas.width,canvas.height);
+			context.fillStyle = 'rgba(0, 0, 0, .02)';
+			context.fillRect(0, 0, canvas.width, canvas.height);
 			for(var i = 0;i <= intStars; i++){
 				motion(i,starSize);
 			}
@@ -143,7 +174,10 @@ function mainProgram(intStars,starSize){
 		}
 		function starColor(i,dist) {
 			var colorVal=dist/(Math.sqrt(Math.pow(canvas.width/2,2)+Math.pow(canvas.height/2,2)))*255;
-			return "rgb("+parseInt(colorVal,10)+","+parseInt(255-colorVal,10)+","+parseInt(255*Math.sin(colorCycle),10)+")";
+			return 'rgb(' + getColor.r(colorVal, colorCycle) +
+				','  + getColor.g(colorVal, colorCycle) +
+				',' + getColor.b(colorVal, colorCycle) +
+			')';
 		}
 	}
 	//controls
@@ -172,6 +206,7 @@ function mainProgram(intStars,starSize){
 }
 
 var on = function () {
+	shuffle(colors);
 	appendView();
 };
 var off = function () {
