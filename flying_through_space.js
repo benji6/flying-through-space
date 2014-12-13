@@ -148,7 +148,7 @@ function mainProgram(intStars,starSize){
 			window.requestAnimFrame(function(){
 				motionLooper(intStars,starSize);
 			});
-			context.fillStyle = 'rgba(0, 0, 0, .02)';
+			context.fillStyle = 'rgba(0, 0, 0, .05)';
 			context.fillRect(0, 0, canvas.width, canvas.height);
 			for(var i = 0;i <= intStars; i++){
 				motion(i,starSize);
