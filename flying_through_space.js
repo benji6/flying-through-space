@@ -129,8 +129,9 @@ function mainProgram(intStars,starSize){
 	}
 	var warp = 0;
 	master(intStars);
-	function master(intStars){
-		var v = 1;
+	var v;
+	function master(intStars) {
+		v = 1;
 		arrA=[];
 		arrX=[];
 		arrY=[];
