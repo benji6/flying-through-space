@@ -88,7 +88,6 @@ function mainProgram(intStars,starSize){
 	txtView.style.display = 'none';
 
 	instructionsView.className = 'instructions';
-	document.body.style.cursor = 'none';
 	canvas.className = 'fullscreen';
 	context = canvas.getContext('2d');
 	viewHolder.appendChild(canvas);
@@ -177,7 +176,6 @@ var on = function () {
 };
 var off = function () {
 	booBreak = true;
-	document.body.style.cursor='default';
 	canvas.parentNode && canvas.parentNode.removeChild(canvas);
 	viewHolder.parentNode && viewHolder.parentNode.removeChild(viewHolder);
 	instructionsView.className = 'hidden';
