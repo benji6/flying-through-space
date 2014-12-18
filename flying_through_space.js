@@ -85,7 +85,7 @@ function getSlider() {
 var colors = [];
 //Fisher-Yates algorithm
 var shuffle = function(arr) {
-	var currentIdx = arr.length
+	var currentIdx = arr.length;
 	var tempVal;
 	var randomIdx;
 	while (currentIdx) {
@@ -94,7 +94,7 @@ var shuffle = function(arr) {
 		tempVal = arr[currentIdx];
 		arr[currentIdx] = arr[randomIdx];
 		arr[randomIdx] = tempVal;
-	};
+	}
 	return arr;
 };
 function mainProgram(intStars,starSize){
@@ -112,7 +112,7 @@ function mainProgram(intStars,starSize){
 		r: colors[0],
 		g: colors[1],
 		b: colors[2]
-	}
+	};
 	booBreak = false;
 	//change display
 	txtView.style.display = 'none';
@@ -143,7 +143,7 @@ function mainProgram(intStars,starSize){
 		colorCycle=0;
 		motionLooper(intStars,starSize);
 		function motionLooper(intStars,starSize) {
-			if (booBreak==true){
+			if (booBreak === true) {
 				return;
 			}
 			window.requestAnimFrame(function(){
@@ -203,7 +203,7 @@ function mainProgram(intStars,starSize){
 			v=v-.2;
 			return;
 		}
-	}
+	};
 }
 
 var on = function () {
