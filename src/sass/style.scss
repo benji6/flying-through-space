@@ -1,0 +1,29 @@
+$black: #111;
+$white: #eee;
+
+body {
+  background-color: $black;
+  color: $white;
+  font-family: sans-serif;
+}
+
+button {
+  margin: 0.1em 1em;
+  width: 8em;
+}
+
+h1 {
+  text-align: center;
+}
+
+table {
+  margin: 1em auto;
+
+  table {
+    margin: 0;
+  }
+}
+
+.center {
+  text-align: center;
+}
