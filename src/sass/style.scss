@@ -5,25 +5,51 @@ body {
   background-color: $black;
   color: $white;
   font-family: sans-serif;
+  overflow: hidden;
+  text-align: center;
 }
 
 button {
-  margin: 0.1em 1em;
+  margin: 1em;
   width: 8em;
 }
 
+canvas {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
 h1 {
-  text-align: center;
+  margin: 1em;
 }
 
-table {
-  margin: 1em auto;
+input {
+  margin: 1em;
+  min-width: 33%;
+}
 
-  table {
-    margin: 0;
+.hidden {
+  display: none;
+}
+
+.instructions {
+  animation: instructions 10s linear;
+  color: rgba(255, 255, 255, 0);
+  font-size: 2em;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  z-index: 1;
+}
+
+@keyframes instructions {
+  0% {
+    top: 0;
+    color: rgba(255, 255, 255, 1);
   }
-}
-
-.center {
-  text-align: center;
+  100% {
+    top: 33%;
+    color: rgba(255, 255, 255, 0);
+  }
 }

@@ -24,11 +24,12 @@ var canvas = document.createElement('canvas');
 	var addView = function(parentEl, childEl, txtNode) {
 		var childElement = document.createElement(childEl);
 		childElement.appendChild(document.createTextNode(txtNode));
-		parentEl.appendChild(childElement);       
+		parentEl.appendChild(childElement);
 	};
 	var curryAddView = curry(addView);
 	var addViewToTxt = curryAddView(txtView);
-	var addH2 = addViewToTxt('h2');
+	var addH1 = addViewToTxt('h1');
+	var addH3 = addViewToTxt('h3');
 	var addP = addViewToTxt('p');
 
 	//set properties of elements
@@ -44,15 +45,15 @@ var canvas = document.createElement('canvas');
 	rangeValue.value = inputRange.value;
 
 	//append to viewHolder
-	addH2('Flying Through Space');
-	addH2('Select Number of Stars');
+	addH1('Flying Through Space');
+	addH3('Select Number of Stars');
 	addP('More Stars = More Resource Intensive');
 	addP('Instructions: use up and down arrow keys to control speed and left and right to warp spacetime');
 	addP('Fullscreen recommended!');
 	txtView.appendChild(inputRange);
 	txtView.appendChild(rangeValue);
 	viewHolder.appendChild(txtView);
-	
+
 	btnLaunch.onclick = getSlider;
 	btnLaunch.onfocus = function () {
 		this.blur && this.blur();
@@ -115,7 +116,8 @@ function mainProgram(intStars,starSize){
 	};
 	booBreak = false;
 	//change display
-	txtView.style.display = 'none';
+	txtView.className = 'hidden';
+	btnLaunch.className = "hidden";
 
 	instructionsView.className = 'instructions';
 	canvas.className = 'fullscreen';
@@ -137,7 +139,7 @@ function mainProgram(intStars,starSize){
 		arrY=[];
 		for(var i = 0; i <= intStars; i++){
 			arrX[i]=(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*16*(canvas.width);
-			arrY[i]=(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*16*(canvas.height);	
+			arrY[i]=(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*16*(canvas.height);
 			arrA[i]=(Math.sin(arrX[i])+Math.cos(arrY[i]))*2*Math.PI;
 		}
 		colorCycle=0;
@@ -156,17 +158,17 @@ function mainProgram(intStars,starSize){
 			}
 			colorCycle=colorCycle+.01;
 		}
-		function motion(i,starSize) {	
+		function motion(i,starSize) {
 			if (Math.abs(arrX[i])>=canvas.width/2 || Math.abs(arrY[i])>=canvas.height/2) {
 				newStar(i);
-			}				
+			}
 			var dist=Math.sqrt(Math.pow(arrX[i],2)+Math.pow(arrY[i],2));
 			var velMod=v*(dist+1)/100;
 			arrX[i]=arrX[i]+Math.sin(arrA[i]+warp*dist)*velMod;
 			arrY[i]=arrY[i]+Math.cos(arrA[i]-warp*dist)*velMod;
 			var starSizeMod=dist/100*starSize;
 			context.fillStyle=starColor(i,dist);
-			context.fillRect(canvas.width/2+arrX[i],canvas.height/2+arrY[i],starSizeMod,starSizeMod);				
+			context.fillRect(canvas.width/2+arrX[i],canvas.height/2+arrY[i],starSizeMod,starSizeMod);
 		}
 		function newStar(i) {
 			arrX[i]=0;
@@ -192,7 +194,7 @@ function mainProgram(intStars,starSize){
 		if (e.keyCode==39 || e.keyCode==68) {
 			warp+=.0005;
 			return;
-		}		
+		}
 		//up
 		if (e.keyCode==38 || e.keyCode==87) {
 			v=v+.2;
@@ -218,7 +220,7 @@ var off = function () {
 	txtView.style.display = '';
 	canvas.className = '';
 
-	
+
 };
 return {
 	on: on,
