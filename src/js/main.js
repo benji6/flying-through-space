@@ -1,6 +1,7 @@
 var flying_through_space = (function () {
 
 var booBreak = false;
+var intStars, starSize, arrA, arrX, arrY, colorCycle;
 var viewHolder = document.createElement('div');
 var txtView = document.createElement('div');
 var instructionsView = document.createElement('div');
@@ -121,7 +122,7 @@ function mainProgram(intStars,starSize){
 
 	instructionsView.className = 'instructions';
 	canvas.className = 'fullscreen';
-	context = canvas.getContext('2d');
+	var context = canvas.getContext('2d');
 	viewHolder.appendChild(canvas);
 	resizeCanvas();
 	window.addEventListener('resize', resizeCanvas, false);
