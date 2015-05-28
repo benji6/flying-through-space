@@ -1,52 +1,28 @@
 require('./keyboardControls.js');
 var createTextView = require('./createTextView.js');
 
-var booBreak = false;
 var intStars, starSize, arrA, arrX, arrY, colorCycle;
-
 var canvas = document.createElement('canvas');
-
-
-
 var viewHolder = createTextView(mainProgram);
 
-
-//mainProgram;
-var colors = [];
 //Fisher-Yates algorithm
-var shuffle = function(arr) {
+const shuffle = (arr) => {
 	var currentIdx = arr.length;
-	var tempVal;
-	var randomIdx;
 	while (currentIdx) {
-		randomIdx = Math.floor(Math.random() * currentIdx);
-		currentIdx--;
-		tempVal = arr[currentIdx];
+		var randomIdx = Math.floor(Math.random() * currentIdx--);
+		var tempVal = arr[currentIdx];
 		arr[currentIdx] = arr[randomIdx];
 		arr[randomIdx] = tempVal;
 	}
 	return arr;
 };
-function mainProgram(intStars,starSize){
-	colors[0] = function r(colorVal) {
-		return colorVal.toFixed(0);
-	};
-	colors[1] = function g(colorVal) {
-		return (255 - colorVal).toFixed(0);
-	};
-	colors[2] = function b(colorVal, colorCycle) {
-		return (255 * Math.sin(colorCycle)).toFixed(0);
-	};
-	shuffle(colors);
-	var getColor = {
-		r: colors[0],
-		g: colors[1],
-		b: colors[2]
-	};
-	booBreak = false;
-	//change display
 
-
+function mainProgram (intStars, starSize) {
+	const colors = shuffle([
+		(colorVal) => colorVal.toFixed(0),
+		(colorVal) => (255 - colorVal).toFixed(0),
+		(colorVal, colorCycle) => (255 * Math.sin(colorCycle)).toFixed(0),
+	]);
 
 	canvas.className = 'fullscreen';
 	var context = canvas.getContext('2d');
@@ -73,12 +49,7 @@ function mainProgram(intStars,starSize){
 		colorCycle=0;
 		motionLooper(intStars,starSize);
 		function motionLooper(intStars,starSize) {
-			if (booBreak === true) {
-				return;
-			}
-			window.requestAnimationFrame(function(){
-				motionLooper(intStars,starSize);
-			});
+			window.requestAnimationFrame(() => motionLooper(intStars,starSize));
 			context.fillStyle = 'rgba(0, 0, 0, .05)';
 			context.fillRect(0, 0, canvas.width, canvas.height);
 			for(var i = 0;i <= intStars; i++){
@@ -103,9 +74,10 @@ function mainProgram(intStars,starSize){
 			arrY[i]=0;
 			arrA[i]=Math.random()*2*Math.PI;
 		}
+
 		function starColor(i,dist) {
-			var colorVal=dist/(Math.sqrt(Math.pow(canvas.width/2,2)+Math.pow(canvas.height/2,2)))*255;
-			return `rgb(${getColor.r(colorVal, colorCycle)}, ${getColor.g(colorVal, colorCycle)}, ${getColor.b(colorVal, colorCycle)})`;
+			var colorVal = dist / (Math.sqrt(Math.pow(canvas.width / 2, 2) + Math.pow(canvas.height / 2, 2))) * 255;
+			return `rgb(${colors[0](colorVal, colorCycle)}, ${colors[1](colorVal, colorCycle)}, ${colors[2](colorVal, colorCycle)})`;
 		}
 	}
 
@@ -113,28 +85,24 @@ function mainProgram(intStars,starSize){
 	const changeV = (x) => v += x;
 
 	//controls
-	document.onkeydown = function(e) {
-		//left
-		if (e.keyCode==37 || e.keyCode==65) {
-			changeWarp(-0.0005);
-			return;
-		}
-		//right
-		if (e.keyCode==39 || e.keyCode==68) {
-			changeWarp(0.0005);
-			return;
-		}
-		//up
-		if (e.keyCode==38 || e.keyCode==87) {
-			changeV(0.2);
-			return;
-		}
-		//down
-		if (e.keyCode==40 || e.keyCode==83) {
-			changeV(-0.2);
-			return;
+	document.onkeydown = (e) => {
+		switch (e.keyCode) {
+			case 37:
+			case 65:
+				//left
+				return changeWarp(-0.0005);
+			case 39:
+			case 68:
+				//right
+				return changeWarp(0.0005);
+			case 38:
+			case 87:
+				//up
+				return changeV(0.2);
+			case 40:
+			case 83:
+				//right
+				return changeV(-0.2);
 		}
 	};
 }
-
-shuffle(colors);
