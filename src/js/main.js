@@ -69,15 +69,6 @@ function appendView() {
 	document.body.appendChild(viewHolder);
 }
 
-//requestAnimFrame
-window.requestAnimFrame = (function() {
-	return  window.requestAnimationFrame ||
-	window.webkitRequestAnimationFrame ||
-	window.mozRequestAnimationFrame ||
-	function(callback){
-		window.setTimeout(callback, 1000 / 60);
-	};
-})();
 function getSlider() {
 	intStars = inputRange.value - 1;
 	starSize = 20 / Math.pow((intStars + 1), .4);
@@ -149,7 +140,7 @@ function mainProgram(intStars,starSize){
 			if (booBreak === true) {
 				return;
 			}
-			window.requestAnimFrame(function(){
+			window.requestAnimationFrame(function(){
 				motionLooper(intStars,starSize);
 			});
 			context.fillStyle = 'rgba(0, 0, 0, .05)';
@@ -157,7 +148,7 @@ function mainProgram(intStars,starSize){
 			for(var i = 0;i <= intStars; i++){
 				motion(i,starSize);
 			}
-			colorCycle=colorCycle+.01;
+			colorCycle += 0.01;
 		}
 		function motion(i,starSize) {
 			if (Math.abs(arrX[i])>=canvas.width/2 || Math.abs(arrY[i])>=canvas.height/2) {
@@ -178,55 +169,37 @@ function mainProgram(intStars,starSize){
 		}
 		function starColor(i,dist) {
 			var colorVal=dist/(Math.sqrt(Math.pow(canvas.width/2,2)+Math.pow(canvas.height/2,2)))*255;
-			return 'rgb(' + getColor.r(colorVal, colorCycle) +
-				','  + getColor.g(colorVal, colorCycle) +
-				',' + getColor.b(colorVal, colorCycle) +
-			')';
+			return `rgb(${getColor.r(colorVal, colorCycle)}, ${getColor.g(colorVal, colorCycle)}, ${getColor.b(colorVal, colorCycle)})`;
 		}
 	}
+
+	const changeWarp = (x) => warp += x;
+	const changeV = (x) => v += x;
+
 	//controls
 	document.onkeydown = function(e) {
 		//left
 		if (e.keyCode==37 || e.keyCode==65) {
-			warp-=.0005;
+			changeWarp(-0.0005);
 			return;
 		}
 		//right
 		if (e.keyCode==39 || e.keyCode==68) {
-			warp+=.0005;
+			changeWarp(0.0005);
 			return;
 		}
 		//up
 		if (e.keyCode==38 || e.keyCode==87) {
-			v=v+.2;
+			changeV(0.2);
 			return;
 		}
 		//down
 		if (e.keyCode==40 || e.keyCode==83) {
-			v=v-.2;
+			changeV(-0.2);
 			return;
 		}
 	};
 }
 
-var on = function () {
-	shuffle(colors);
-	appendView();
-};
-var off = function () {
-	booBreak = true;
-	canvas.parentNode && canvas.parentNode.removeChild(canvas);
-	viewHolder.parentNode && viewHolder.parentNode.removeChild(viewHolder);
-	instructionsView.className = 'hidden';
-	txtView.style.display = '';
-	canvas.className = '';
-
-
-};
-return {
-	on: on,
-	off: off
-};
-}());
-
-flying_through_space.on();
+shuffle(colors);
+appendView();
