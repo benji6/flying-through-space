@@ -14,6 +14,7 @@ button {
 }
 
 canvas {
+  cursor: none;
   left: 0;
   position: absolute;
   top: 0;
@@ -35,6 +36,7 @@ input {
 .instructions {
   animation: instructions 10s linear;
   color: rgba(255, 255, 255, 0);
+  cursor: none;
   font-size: 2em;
   position: absolute;
   text-align: center;
@@ -45,7 +47,7 @@ input {
 @keyframes instructions {
   0% {
     top: 0;
-    color: rgba(255, 255, 255, 1);
+    color: $white;
   }
   100% {
     top: 33%;
