@@ -1,3 +1,5 @@
+const R = require('ramda');
+
 module.exports = (mainProgram) => {
 	var txtView = document.createElement('div');
 	var inputRange = document.createElement('input');
@@ -6,36 +8,23 @@ module.exports = (mainProgram) => {
 	var btnLaunch = document.createElement('button');
 	var instructionsView = document.createElement('div');
 
-	function appendView() {
-		document.body.appendChild(viewHolder);
-	}
+	appendView = () => document.body.appendChild(viewHolder);
 
-	function getSlider() {
+	getSlider = () => {
 		intStars = inputRange.value - 1;
-		starSize = 20 / Math.pow((intStars + 1), .4);
+		starSize = 20 / Math.pow(intStars + 1, 0.4);
 		mainProgram(intStars, starSize);
 		txtView.className = 'hidden';
 		btnLaunch.className = "hidden";
 		instructionsView.className = 'instructions';
-	}
-
-	var curry = function(func) {
-		var curried = function(args) {
-			if (args.length >= func.length) {
-				return func.apply(null, args);
-			}
-			return function() {
-				return curried(args.concat(Array.prototype.slice.apply(arguments)));
-			};
-		};
-		return curried(Array.prototype.slice.apply(arguments, [1]));
 	};
-	var addView = function(parentEl, childEl, txtNode) {
+
+	var addView = (parentEl, childEl, txtNode) => {
 		var childElement = document.createElement(childEl);
 		childElement.appendChild(document.createTextNode(txtNode));
 		parentEl.appendChild(childElement);
 	};
-	var curryAddView = curry(addView);
+	var curryAddView = R.curry(addView);
 	var addViewToTxt = curryAddView(txtView);
 	var addH1 = addViewToTxt('h1');
 	var addH3 = addViewToTxt('h3');
@@ -48,7 +37,7 @@ module.exports = (mainProgram) => {
 	inputRange.max = '3072';
 	inputRange.step = '8';
 	inputRange.value = inputRange.max;
-	inputRange.onchange = function() {
+	inputRange.onchange = function () {
 		rangeValue.value = this.value;
 	};
 	rangeValue.value = inputRange.value;
