@@ -1,13 +1,11 @@
-const autoResizeCanvas = require('./autoResizeCanvas.js');
 const domEvents = require('./domEvents.js');
 const keyboardControls = require('./keyboardControls');
 const shuffle = require('./shuffle.js');
 
-const canvas = document.createElement('canvas');
-const viewHolder = domEvents(mainProgram);
+domEvents(mainProgram);
 
-function mainProgram (intStars, starSize) {
-	autoResizeCanvas(canvas);
+function mainProgram (intStars, starSize, canvas) {
+	const context = canvas.getContext('2d');
 	var colorCycle = 0;
 
 	const colors = shuffle([
@@ -15,10 +13,6 @@ function mainProgram (intStars, starSize) {
 		(colorVal) => (255 - colorVal).toFixed(0),
 		(colorVal, colorCycle) => (255 * Math.sin(colorCycle)).toFixed(0),
 	]);
-
-	canvas.className = 'fullscreen';
-	var context = canvas.getContext('2d');
-	viewHolder.appendChild(canvas);
 
 	var warp = 0;
 	var v = 1;
