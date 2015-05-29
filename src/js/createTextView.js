@@ -11,8 +11,8 @@ module.exports = (mainProgram) => {
 	appendView = () => document.body.appendChild(viewHolder);
 
 	getSlider = () => {
-		intStars = inputRange.value - 1;
-		starSize = 20 / Math.pow(intStars + 1, 0.4);
+		window.intStars = inputRange.value - 1;
+		window.starSize = 20 / Math.pow(intStars + 1, 0.4);
 		mainProgram(intStars, starSize);
 		txtView.className = 'hidden';
 		btnLaunch.className = "hidden";
