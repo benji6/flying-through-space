@@ -9,7 +9,7 @@ body {
 }
 
 button {
-  margin: 1em;
+  margin: 2em;
   width: 8em;
 }
 
@@ -25,8 +25,12 @@ h1 {
 }
 
 input {
-  margin: 1em;
+  margin: 1em 0 0;
   min-width: 33%;
+}
+
+.center {
+  text-align: center;
 }
 
 .hidden {

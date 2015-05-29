@@ -78,7 +78,7 @@ gulp.task("watch", function () {
   gulp.watch("src/js/**/*.js", ["jsDev"]);
   gulp.watch(htmlPath, ["html"]);
   gulp.watch(sassPath, ["sass"]);
-  gulp.watch(distPath + "*", ["reload"]);
+  gulp.watch(distPath, ["reload"]);
 });
 
 gulp.task("build", ["jsProd", "html", "sass"]);

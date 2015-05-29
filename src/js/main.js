@@ -1,9 +1,9 @@
 const autoResizeCanvas = require('./autoResizeCanvas.js');
-const createTextView = require('./createTextView.js');
+const domEvents = require('./domEvents.js');
 const keyboardControls = require('./keyboardControls');
 
 const canvas = document.createElement('canvas');
-const viewHolder = createTextView(mainProgram);
+const viewHolder = domEvents(mainProgram);
 
 //Fisher-Yates algorithm
 const shuffle = (arr) => {

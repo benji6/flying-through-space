@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="style.css" type="text/css">
   </head>
   <body>
+    <div id="introduction">
+      <h1>Flying Through Space</h1>
+      <h3>Select Number of Stars</h3>
+      <p>More Stars = More Resource Intensive</p>
+      <p>Instructions: use up and down arrow keys to control speed and left and right to warp spacetime</p>
+      <p>Fullscreen recommended!</p>
+      <input type="range" min="64" max="3072" step="8" value="3072">
+      <div class="center">
+        <output>3072</output>
+      </div>
+      <div class="center">
+        <button>Launch!</button>
+      </div>
+    </div>
+    <div id="instructions" class="hidden">Use up and down arrow keys to control speed and left and right to warp spacetime</div>
     <script src="bundle.js" type="text/javascript"></script>
   </body>
 </html>
