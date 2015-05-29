@@ -12,6 +12,7 @@ module.exports = (mainProgram) => {
 		window.intStars = input.value - 1;
 		window.starSize = 20 / Math.pow(intStars + 1, 0.4);
 		document.querySelector("#introduction").className = "hidden";
+		document.querySelector("#instructions").className = "instructions";
 		mainProgram(intStars, starSize);
 	};
 
