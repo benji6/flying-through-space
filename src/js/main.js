@@ -2,11 +2,12 @@ const domEvents = require('./domEvents.js');
 const keyboardControls = require('./keyboardControls');
 const shuffle = require('./shuffle.js');
 
+const computeNewAngle = () => Math.random() * 2 * Math.PI;
+
 const mainProgram = (intStars, starSize, canvas) => {
 	const context = canvas.getContext('2d');
-	const starAngles = [];
-	const starXCoords = [];
-	const starYCoords = [];
+	const starModels = [];
+
 	var colorCycle = 0;
 	var warp = 0;
 	var v = 1;
@@ -19,37 +20,41 @@ const mainProgram = (intStars, starSize, canvas) => {
 
 	//initialize model
 	for (var i = 0; i <= intStars; i++) {
-		starXCoords[i]= Math.pow(Math.random(), 4) * (Math.round(Math.random()) ? 1 : -1) /
-			2 * canvas.width;
-			starYCoords[i]= Math.pow(Math.random(), 4) * (Math.round(Math.random()) ? 1 : -1) /
-			2 * canvas.height;
-		starAngles[i]= (Math.sin(starXCoords[i]) + Math.cos(starYCoords[i])) * 2 * Math.PI;
+		let phi = computeNewAngle();
+		let randomFactor = Math.pow(Math.random(), 2);
+		starModels[i] = {
+			x: randomFactor * canvas.width / 2 * Math.cos(phi),
+			y: randomFactor * canvas.height / 2 * Math.sin(phi),
+			angle: computeNewAngle()
+		};
 	}
 
 	(function animationLoop () {
 		window.requestAnimationFrame(animationLoop);
 		context.fillStyle = "rgba(0, 0, 0, .05)";
 		context.fillRect(0, 0, canvas.width, canvas.height);
+		colorCycle += 0.01;
 
-		for (var i = 0; i <= intStars; i++) {
-			if (Math.abs(starXCoords[i]) >= canvas.width / 2 ||
-				Math.abs(starYCoords[i]) >= canvas.height / 2) {
-				starXCoords[i] = 0;
-				starYCoords[i] = 0;
-				starAngles[i] = Math.random() * 2 * Math.PI;
+		starModels.forEach((starModel) => {
+			const {x, y, angle} = starModel;
+			if (Math.abs(x) >= canvas.width / 2 || Math.abs(y) >= canvas.height / 2) {
+				let newAngle = computeNewAngle();
+				starModel.x = Math.cos(newAngle) * v * 0.01;
+				starModel.y = Math.sin(newAngle) * v * 0.01;
+				starModel.angle = newAngle;
+				return;
 			}
-			const dist = Math.sqrt(Math.pow(starXCoords[i], 2) + Math.pow(starYCoords[i], 2));
-			const velMod = v * (dist + 1) / 100;
-			starXCoords[i] = starXCoords[i] + Math.sin(starAngles[i] + warp * dist) * velMod;
-			starYCoords[i] = starYCoords[i] + Math.cos(starAngles[i] - warp * dist) * velMod;
-			const starSizeMod = dist / 100 * starSize;
-			const colorVal = dist / (Math.sqrt(Math.pow(canvas.width / 2, 2) +
+			const r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+			const velMod = v * (r + 1) / 100;
+			starModel.x = x + Math.cos(angle + warp * r) * velMod;
+			starModel.y = y + Math.sin(angle - warp * r) * velMod;
+			const starSizeMod = r / 100 * starSize;
+			const colorVal = r / (Math.sqrt(Math.pow(canvas.width / 2, 2) +
 				Math.pow(canvas.height / 2, 2))) * 255;
 			context.fillStyle=`rgb(${colors[0](colorVal, colorCycle)}, ${colors[1](colorVal, colorCycle)}, ${colors[2](colorVal, colorCycle)})`;
-			context.fillRect(canvas.width / 2 + starXCoords[i], canvas.height / 2 + starYCoords[i],
+			context.fillRect(canvas.width / 2 + x, canvas.height / 2 + y,
 				starSizeMod, starSizeMod);
-		}
-		colorCycle += 0.01;
+		});
 	}());
 
 	keyboardControls({
