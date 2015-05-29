@@ -8,9 +8,9 @@ module.exports = (mainProgram) => {
 	var btnLaunch = document.createElement('button');
 	var instructionsView = document.createElement('div');
 
-	appendView = () => document.body.appendChild(viewHolder);
+	const appendView = () => document.body.appendChild(viewHolder);
 
-	getSlider = () => {
+	const getSlider = () => {
 		window.intStars = inputRange.value - 1;
 		window.starSize = 20 / Math.pow(intStars + 1, 0.4);
 		mainProgram(intStars, starSize);
