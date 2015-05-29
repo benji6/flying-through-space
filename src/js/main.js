@@ -1,7 +1,8 @@
-var createTextView = require('./createTextView.js');
+const createTextView = require('./createTextView.js');
+const keyboardControls = require('./keyboardControls');
 
-var canvas = document.createElement('canvas');
-var viewHolder = createTextView(mainProgram);
+const canvas = document.createElement('canvas');
+const viewHolder = createTextView(mainProgram);
 
 //Fisher-Yates algorithm
 const shuffle = (arr) => {
@@ -73,31 +74,8 @@ function mainProgram (intStars, starSize) {
 		colorCycle += 0.01;
 	}
 
-	const changeWarp = (x) => warp += x;
-	const changeV = (x) => v += x;
-
-	//controls
-	document.onkeydown = (e) => {
-		switch (e.keyCode) {
-			case 27:
-				//escape
-				return window.location.reload();
-			case 37:
-			case 65:
-				//left
-				return changeWarp(-0.0005);
-			case 39:
-			case 68:
-				//right
-				return changeWarp(0.0005);
-			case 38:
-			case 87:
-				//up
-				return changeV(0.2);
-			case 40:
-			case 83:
-				//right
-				return changeV(-0.2);
-		}
-	};
+	keyboardControls({
+		changeWarp: (x) => warp += x,
+		changeV: (x) => v += x,
+	});
 }
