@@ -22,6 +22,4 @@ module.exports = (mainProgram) => {
 	};
 
 	button.onfocus = ({target}) => target.blur && target.blur();
-
-	return viewHolder;
 };
