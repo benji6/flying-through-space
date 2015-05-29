@@ -1,21 +1,10 @@
 const autoResizeCanvas = require('./autoResizeCanvas.js');
 const domEvents = require('./domEvents.js');
 const keyboardControls = require('./keyboardControls');
+const shuffle = require('./shuffle.js');
 
 const canvas = document.createElement('canvas');
 const viewHolder = domEvents(mainProgram);
-
-//Fisher-Yates algorithm
-const shuffle = (arr) => {
-	var currentIdx = arr.length;
-	while (currentIdx) {
-		var randomIdx = Math.floor(Math.random() * currentIdx--);
-		var tempVal = arr[currentIdx];
-		arr[currentIdx] = arr[randomIdx];
-		arr[randomIdx] = tempVal;
-	}
-	return arr;
-};
 
 function mainProgram (intStars, starSize) {
 	autoResizeCanvas(canvas);

@@ -43,6 +43,7 @@ gulp.task("jsDev", function () {
     .pipe(plumber())
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(babel())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist'));
 });
