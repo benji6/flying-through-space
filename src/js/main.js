@@ -1,3 +1,4 @@
+const autoResizeCanvas = require('./autoResizeCanvas.js');
 const createTextView = require('./createTextView.js');
 const keyboardControls = require('./keyboardControls');
 
@@ -17,6 +18,7 @@ const shuffle = (arr) => {
 };
 
 function mainProgram (intStars, starSize) {
+	autoResizeCanvas(canvas);
 	var colorCycle = 0;
 
 	const colors = shuffle([
@@ -28,14 +30,6 @@ function mainProgram (intStars, starSize) {
 	canvas.className = 'fullscreen';
 	var context = canvas.getContext('2d');
 	viewHolder.appendChild(canvas);
-
-	const resizeCanvas = () => {
-		canvas.width=window.innerWidth;
-		canvas.height=window.innerHeight;
-	};
-
-	resizeCanvas();
-	window.addEventListener('resize', resizeCanvas);
 
 	var warp = 0;
 	var v = 1;
