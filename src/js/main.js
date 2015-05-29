@@ -20,10 +20,12 @@ function mainProgram (intStars, starSize, canvas) {
 	const arrX = [];
 	const arrY = [];
 
-	for(var i = 0; i <= intStars; i++){
-		arrX[i]=(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*16*(canvas.width);
-		arrY[i]=(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*(Math.random()-.5)*16*(canvas.height);
-		arrA[i]=(Math.sin(arrX[i])+Math.cos(arrY[i]))*2*Math.PI;
+	for (var i = 0; i <= intStars; i++) {
+		arrX[i]= Math.pow(Math.random(), 4) * (Math.round(Math.random()) ? 1 : -1) /
+			2 * canvas.width;
+			arrY[i]= Math.pow(Math.random(), 4) * (Math.round(Math.random()) ? 1 : -1) /
+			2 * canvas.height;
+		arrA[i]= (Math.sin(arrX[i]) + Math.cos(arrY[i])) * 2 * Math.PI;
 	}
 
 	motionLooper(intStars,starSize);
