@@ -1,1 +1,142 @@
-"use strict";!function t(n,e,r){function o(i,u){if(!e[i]){if(!n[i]){var c="function"==typeof require&&require;if(!u&&c)return c(i,!0);if(a)return a(i,!0);var s=new Error("Cannot find module '"+i+"'");throw s.code="MODULE_NOT_FOUND",s}var h=e[i]={exports:{}};n[i][0].call(h.exports,function(t){var e=n[i][1][t];return o(e?e:t)},h,h.exports,t,n,e,r)}return e[i].exports}for(var a="function"==typeof require&&require,i=0;i<r.length;i++)o(r[i]);return o}({1:[function(t,n,e){n.exports=function(t){var n=function(){t.width=window.innerWidth,t.height=window.innerHeight};n(),window.addEventListener("resize",n)}},{}],2:[function(t,n,e){var r=t("./autoResizeCanvas.js");n.exports=function(t){var n=document.querySelector("button"),e=document.querySelector("input"),o=(document.querySelector("#instructions"),document.querySelector("output")),a=(document.body.appendChild(document.createElement("div")),document.querySelector("canvas"));o.value=e.value,e.oninput=function(){return o.value=e.value},n.onclick=function(){a.className="fullscreen",r(a),window.intStars=e.value-1,window.starSize=20/Math.pow(intStars+1,.4),document.querySelector("#introduction").className="hidden",document.querySelector("#instructions").className="instructions",t(intStars,starSize,a)},n.onfocus=function(t){var n=t.target;return n.blur&&n.blur()}}},{"./autoResizeCanvas.js":1}],3:[function(t,n,e){n.exports=function(t){var n=t.changeWarp,e=t.changeV;return document.onkeydown=function(t){switch(t.keyCode){case 27:return window.location.reload();case 37:case 65:return n(-5e-4);case 39:case 68:return n(5e-4);case 38:case 87:return e(.2);case 40:case 83:return e(-.2)}}}},{}],4:[function(t,n,e){var r=t("./domEvents.js"),o=t("./keyboardControls"),a=t("./shuffle.js"),i=function(){return 2*Math.random()*Math.PI},u=function(t,n,e){for(var r=e.getContext("2d"),u=[],c=0,s=0,h=1,d=a([function(t){return t.toFixed(0)},function(t){return(255-t).toFixed(0)},function(t,n){return(255*Math.sin(n)).toFixed(0)}]),f=0;t>=f;f++){var l=i(),v=Math.pow(Math.random(),2);u[f]={x:v*e.width/2*Math.cos(l),y:v*e.height/2*Math.sin(l),angle:i()}}!function w(){window.requestAnimationFrame(w),r.fillStyle="rgba(0, 0, 0, .05)",r.fillRect(0,0,e.width,e.height),c+=.01,u.forEach(function(t){var o=t.x,a=t.y,u=t.angle;if(Math.abs(o)>=e.width/2||Math.abs(a)>=e.height/2){var f=i();return t.x=Math.cos(f)*h*.01,t.y=Math.sin(f)*h*.01,void(t.angle=f)}var l=Math.sqrt(Math.pow(o,2)+Math.pow(a,2)),v=h*(l+1)/100;t.x=o+Math.cos(u+s*l)*v,t.y=a+Math.sin(u-s*l)*v;var w=l/100*n,p=l/Math.sqrt(Math.pow(e.width/2,2)+Math.pow(e.height/2,2))*255;r.fillStyle="rgb("+d[0](p,c)+", "+d[1](p,c)+", "+d[2](p,c)+")",r.fillRect(e.width/2+o,e.height/2+a,w,w)})}(),o({changeWarp:function(t){return s+=t},changeV:function(t){return h+=t}})};r(u)},{"./domEvents.js":2,"./keyboardControls":3,"./shuffle.js":5}],5:[function(t,n,e){n.exports=function(t){for(var n=t.length;n;){var e=Math.floor(Math.random()*n--),r=t[n];t[n]=t[e],t[e]=r}return t}},{}]},{},[4]);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports = canvas => {
+  const resizeCanvas = () => {
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+  }
+
+  resizeCanvas()
+  window.addEventListener('resize', resizeCanvas)
+}
+
+},{}],2:[function(require,module,exports){
+const autoResizeCanvas = require('./autoResizeCanvas.js')
+
+module.exports = mainProgram => {
+	const button = document.querySelector('button')
+	const input = document.querySelector('input')
+	const output = document.querySelector('output')
+	const canvas = document.querySelector('canvas')
+
+	canvas.onclick = () => {
+		if (canvas.requestFullscreen) canvas.requestFullscreen()
+		else if (canvas.mozRequestFullScreen) canvas.mozRequestFullScreen()
+		else if (canvas.webkitRequestFullscreen) canvas.webkitRequestFullscreen()
+	}
+
+	output.value = input.value
+	input.oninput = () => output.value = input.value
+
+	button.onclick = () => {
+		canvas.className = 'fullscreen'
+		autoResizeCanvas(canvas)
+		window.intStars = input.value - 1
+		window.starSize = 20 / Math.pow(window.intStars + 1, 0.4)
+		document.querySelector('#introduction').className = 'hidden'
+		document.querySelector('#instructions').className = 'instructions'
+		mainProgram(window.intStars, window.starSize / 100, canvas)
+	}
+
+	button.onfocus = ({target}) => target.blur && target.blur()
+}
+
+},{"./autoResizeCanvas.js":1}],3:[function(require,module,exports){
+module.exports = ({changeWarp, changeV}) => document.onkeydown = e => {
+  switch (e.keyCode) {
+    case 27: return location.reload()
+    case 37:
+    case 65: return changeWarp(-0.0005)
+    case 39:
+    case 68: return changeWarp(0.0005)
+    case 38:
+    case 87: return changeV(0.2)
+    case 40:
+    case 83: return changeV(-0.2)
+  }
+}
+
+},{}],4:[function(require,module,exports){
+const domEvents = require('./domEvents.js')
+const keyboardControls = require('./keyboardControls')
+const shuffle = require('./shuffle.js')
+
+const starModels = []
+const TAU = 2 * Math.PI
+
+const mainProgram = (intStars, starSize, canvas) => {
+	const context = canvas.getContext('2d')
+  const {height, width} = canvas
+
+  const colors = shuffle([
+    colorVal => colorVal.toFixed(0),
+    colorVal => (255 - colorVal).toFixed(0),
+    (colorVal, colorCycle) => (255 * Math.sin(colorCycle)).toFixed(0),
+  ])
+
+	let colorCycle = 0
+	let warp = 0
+	let v = 0.01
+
+	for (let i = 0; i <= intStars; i++) {
+		const phi = Math.random() * TAU
+		const randomFactor = Math.pow(Math.random(), 2)
+		starModels[i] = {
+			angle: Math.random() * TAU,
+			x: randomFactor * width / 2 * Math.cos(phi),
+			y: randomFactor * height / 2 * Math.sin(phi),
+		}
+	}
+
+	(function animationLoop () {
+		requestAnimationFrame(animationLoop)
+    const {height, width} = canvas
+    const widthHalf = width / 2
+    const heightHalf = height / 2
+    const colorValModifier = 1 / Math.hypot(widthHalf, heightHalf) * 255
+
+		context.fillStyle = 'rgba(0,0,0,.05)'
+		context.fillRect(0, 0, width, height)
+		colorCycle += 0.01
+
+    for (let i = 0; i < starModels.length; i++) {
+      const starModel = starModels[i]
+      const {x, y, angle} = starModel
+      if (Math.abs(x) >= widthHalf || Math.abs(y) >= heightHalf) {
+        const newAngle = Math.random() * TAU
+        starModel.x = Math.cos(newAngle) * v
+        starModel.y = Math.sin(newAngle) * v
+        starModel.angle = newAngle
+        continue
+      }
+      const r = Math.hypot(x, y)
+      const velMod = v * (r + 1)
+      starModel.x = x + Math.cos(angle + warp * r) * velMod
+      starModel.y = y + Math.sin(angle - warp * r) * velMod
+      const starSizeMod = r * starSize
+      const colorVal = r * colorValModifier
+      context.fillStyle = `rgb(${colors[0](colorVal, colorCycle)},${colors[1](colorVal, colorCycle)},${colors[2](colorVal, colorCycle)})`
+      context.fillRect(widthHalf + x, heightHalf + y, starSizeMod, starSizeMod)
+    }
+	}())
+
+	keyboardControls({
+		changeV: x => v += x / 100,
+		changeWarp: x => warp += x,
+	})
+}
+
+domEvents(mainProgram)
+
+},{"./domEvents.js":2,"./keyboardControls":3,"./shuffle.js":5}],5:[function(require,module,exports){
+module.exports = arr => {
+	let currentIdx = arr.length
+	while (currentIdx) {
+		const randomIdx = Math.floor(Math.random() * currentIdx--)
+		const tempVal = arr[currentIdx]
+		arr[currentIdx] = arr[randomIdx]
+		arr[randomIdx] = tempVal
+	}
+	return arr
+}
+
+},{}]},{},[4]);
