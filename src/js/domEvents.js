@@ -8,6 +8,16 @@ module.exports = (mainProgram) => {
 	const viewHolder = document.body.appendChild(document.createElement("div"));
 	const canvas = document.querySelector('canvas');
 
+	canvas.onclick = () => {
+	  if (canvas.requestFullscreen) {
+	    canvas.requestFullscreen();
+	  } else if (canvas.mozRequestFullScreen) {
+	    canvas.mozRequestFullScreen();
+	  } else if (canvas.webkitRequestFullscreen) {
+	    canvas.webkitRequestFullscreen();
+	  }
+	};
+
 	output.value = input.value;
 	input.oninput = () => output.value = input.value;
 

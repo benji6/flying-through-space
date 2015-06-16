@@ -14,10 +14,18 @@ button {
 }
 
 canvas {
-  cursor: none;
+  background: $black;
+  cursor: pointer;
   left: 0;
   position: absolute;
   top: 0;
+
+  &:fullscreen {
+    cursor: none;
+    height: 100vh;
+    margin: 0;
+    width: 100vw;
+  }
 }
 
 h1 {
