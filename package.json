@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/benji6/flying_through_space",
   "devDependencies": {
-    "browserify": "^10.2.4",
+    "browserify": "^13.3.0",
     "eslint": "^3.13.0",
     "eslint-config-benji6": "benji6/eslint-config-benji6.git#v0.4.0",
     "gulp": "^3.9.0",
