@@ -4,6 +4,8 @@
   "description": "",
   "main": "flying_through_space.js",
   "scripts": {
+    "build": "gulp build",
+    "start": "gulp watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
