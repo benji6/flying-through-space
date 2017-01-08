@@ -18,7 +18,6 @@ const mainProgram = (intStars, starSize, canvas) => {
 		(colorVal, colorCycle) => (255 * Math.sin(colorCycle)).toFixed(0),
 	])
 
-	// initialize model
 	for (let i = 0; i <= intStars; i++) {
 		const phi = Math.random() * TAU
 		const randomFactor = Math.pow(Math.random(), 2)
