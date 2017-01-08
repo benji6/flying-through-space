@@ -4,15 +4,16 @@ const shuffle = require('./shuffle.js')
 
 const starModels = []
 const TAU = 2 * Math.PI
-const colors = shuffle([
-  colorVal => colorVal.toFixed(0),
-  colorVal => (255 - colorVal).toFixed(0),
-  (colorVal, colorCycle) => (255 * Math.sin(colorCycle)).toFixed(0),
-])
 
 const mainProgram = (intStars, starSize, canvas) => {
 	const context = canvas.getContext('2d')
   const {height, width} = canvas
+
+  const colors = shuffle([
+    colorVal => colorVal.toFixed(0),
+    colorVal => (255 - colorVal).toFixed(0),
+    (colorVal, colorCycle) => (255 * Math.sin(colorCycle)).toFixed(0),
+  ])
 
 	let colorCycle = 0
 	let warp = 0
