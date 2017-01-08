@@ -1,5 +1,3 @@
-const autoprefixer = require('gulp-autoprefixer')
-const babel = require('gulp-babel')
 const buffer = require('vinyl-buffer')
 const browserify = require('browserify')
 const connect = require('gulp-connect')
@@ -11,7 +9,6 @@ const plumber = require('gulp-plumber')
 const sass = require('gulp-sass')
 const source = require('vinyl-source-stream')
 const sourcemaps = require('gulp-sourcemaps')
-const uglify = require('gulp-uglify')
 const watchify = require('watchify')
 
 const htmlPath = 'src/html/index.html'
@@ -42,7 +39,6 @@ gulp.task('jsDev', () => {
     .pipe(plumber())
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(babel())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist'))
 })
@@ -56,8 +52,6 @@ gulp.task('jsProd', () => {
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
     .pipe(source('bundle.js'))
     .pipe(buffer())
-    .pipe(babel())
-    .pipe(uglify())
     .pipe(gulp.dest('dist'))
 })
 
@@ -65,10 +59,6 @@ gulp.task('sass', () => {
   gulp.src(sassPath)
     .pipe(plumber())
     .pipe(sass())
-    .pipe(autoprefixer({
-      browsers: ['> 1%', 'last 3 versions'],
-      cascade: false,
-    }))
     .pipe(minifyCSS())
     .pipe(gulp.dest(distPath))
 })

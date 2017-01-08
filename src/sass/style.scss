@@ -1,8 +1,6 @@
-@import "_vars";
-
 body {
-  background-color: $black;
-  color: $white;
+  background-color: #000;
+  color: #eee;
   font-family: sans-serif;
   overflow: hidden;
   text-align: center;
@@ -14,18 +12,32 @@ button {
 }
 
 canvas {
-  background: $black;
+  background: #000;
   cursor: pointer;
   left: 0;
   position: absolute;
   top: 0;
+}
 
-  &:fullscreen {
-    cursor: none;
-    height: 100vh;
-    margin: 0;
-    width: 100vw;
-  }
+canvas:fullscreen {
+  cursor: none;
+  height: 100vh;
+  margin: 0;
+  width: 100vw;
+}
+
+canvas:-moz-full-screen {
+  cursor: none;
+  height: 100vh;
+  margin: 0;
+  width: 100vw;
+}
+
+canvas:-webkit-full-screen {
+  cursor: none;
+  height: 100vh;
+  margin: 0;
+  width: 100vw;
 }
 
 h1 {
@@ -59,7 +71,7 @@ input {
 @keyframes instructions {
   0% {
     top: 0;
-    color: $white;
+    color: #eee;
   }
   100% {
     top: 33%;
