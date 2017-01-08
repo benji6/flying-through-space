@@ -6,14 +6,12 @@ const gutil = require('gulp-util')
 const minifyCSS = require('gulp-minify-css')
 const minifyHTML = require('gulp-minify-html')
 const plumber = require('gulp-plumber')
-const sass = require('gulp-sass')
 const source = require('vinyl-source-stream')
 const sourcemaps = require('gulp-sourcemaps')
 const watchify = require('watchify')
 
 const htmlPath = 'src/html/index.html'
 const jsPath = 'src/js/main.js'
-const sassPath = 'src/sass/style.scss'
 const distPath = 'dist'
 
 gulp.task('connect', () => {
@@ -55,21 +53,20 @@ gulp.task('jsProd', () => {
     .pipe(gulp.dest('dist'))
 })
 
-gulp.task('sass', () => {
-  gulp.src(sassPath)
+gulp.task('css', () => {
+  gulp.src('src/index.css')
     .pipe(plumber())
-    .pipe(sass())
     .pipe(minifyCSS())
     .pipe(gulp.dest(distPath))
 })
 
 gulp.task('watch', () => {
-  gulp.start('jsDev', 'html', 'sass', 'connect')
+  gulp.start('jsDev', 'html', 'css', 'connect')
   gulp.watch('src/js/**/*.js', ['jsDev'])
   gulp.watch(htmlPath, ['html'])
-  gulp.watch('src/sass/**/*.scss', ['sass'])
+  gulp.watch('src/**/*.css', ['css'])
   gulp.watch(distPath, ['reload'])
 })
 
-gulp.task('build', ['jsProd', 'html', 'sass'])
+gulp.task('build', ['jsProd', 'html', 'css'])
 gulp.task('default', ['watch'])
