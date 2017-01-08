@@ -7,13 +7,9 @@ module.exports = mainProgram => {
 	const canvas = document.querySelector('canvas')
 
 	canvas.onclick = () => {
-		if (canvas.requestFullscreen) {
-			canvas.requestFullscreen()
-		} else if (canvas.mozRequestFullScreen) {
-			canvas.mozRequestFullScreen()
-		} else if (canvas.webkitRequestFullscreen) {
-			canvas.webkitRequestFullscreen()
-		}
+		if (canvas.requestFullscreen) canvas.requestFullscreen()
+		else if (canvas.mozRequestFullScreen) canvas.mozRequestFullScreen()
+		else if (canvas.webkitRequestFullscreen) canvas.webkitRequestFullscreen()
 	}
 
 	output.value = input.value
