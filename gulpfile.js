@@ -8,7 +8,6 @@ const gutil = require('gulp-util');
 const minifyCSS = require('gulp-minify-css');
 const minifyHTML = require('gulp-minify-html');
 const plumber = require('gulp-plumber');
-const R = require('ramda');
 const sass = require('gulp-sass');
 const source = require('vinyl-source-stream');
 const sourcemaps = require('gulp-sourcemaps');
@@ -35,7 +34,7 @@ gulp.task("html", function () {
 });
 
 gulp.task("jsDev", function () {
-  const bundler = watchify(browserify(jsPath, R.assoc("debug", true, watchify.args)));
+  const bundler = watchify(browserify(jsPath, Object.assign({}, watchify.args, {debug: true}))));
 
   bundler.bundle()
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
