@@ -2,7 +2,7 @@ const domEvents = require('./domEvents.js')
 const keyboardControls = require('./keyboardControls')
 const shuffle = require('./shuffle.js')
 
-const computeNewAngle = () => Math.random() * 2 * Math.PI
+const TAU = 2 * Math.PI
 
 const mainProgram = (intStars, starSize, canvas) => {
 	const context = canvas.getContext('2d')
@@ -20,10 +20,10 @@ const mainProgram = (intStars, starSize, canvas) => {
 
 	// initialize model
 	for (let i = 0; i <= intStars; i++) {
-		const phi = computeNewAngle()
+		const phi = Math.random() * TAU
 		const randomFactor = Math.pow(Math.random(), 2)
 		starModels[i] = {
-			angle: computeNewAngle(),
+			angle: Math.random() * TAU,
 			x: randomFactor * canvas.width / 2 * Math.cos(phi),
 			y: randomFactor * canvas.height / 2 * Math.sin(phi),
 		}
@@ -38,7 +38,7 @@ const mainProgram = (intStars, starSize, canvas) => {
 		starModels.forEach(starModel => {
 			const {x, y, angle} = starModel
 			if (Math.abs(x) >= canvas.width / 2 || Math.abs(y) >= canvas.height / 2) {
-				const newAngle = computeNewAngle()
+				const newAngle = Math.random() * TAU
 				starModel.x = Math.cos(newAngle) * v * 0.01
 				starModel.y = Math.sin(newAngle) * v * 0.01
 				starModel.angle = newAngle
