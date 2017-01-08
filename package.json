@@ -5,8 +5,9 @@
   "main": "flying_through_space.js",
   "scripts": {
     "build": "gulp build",
+    "lint": "eslint src",
     "start": "gulp watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,8 @@
   "homepage": "https://github.com/benji6/flying_through_space",
   "devDependencies": {
     "browserify": "^10.2.4",
+    "eslint": "^3.13.0",
+    "eslint-config-benji6": "benji6/eslint-config-benji6.git#v0.4.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.3.1",
     "gulp-babel": "^5.1.0",
@@ -34,10 +37,6 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.2"
-  },
-  "jshintConfig": {
-    "esnext": "true",
-    "expr": "true"
   },
   "dependencies": {}
 }
