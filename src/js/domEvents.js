@@ -22,7 +22,7 @@ module.exports = mainProgram => {
 		window.starSize = 20 / Math.pow(window.intStars + 1, 0.4)
 		document.querySelector('#introduction').className = 'hidden'
 		document.querySelector('#instructions').className = 'instructions'
-		mainProgram(window.intStars, window.starSize, canvas)
+		mainProgram(window.intStars, window.starSize / 100, canvas)
 	}
 
 	button.onfocus = ({target}) => target.blur && target.blur()
